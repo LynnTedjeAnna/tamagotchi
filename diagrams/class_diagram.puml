@@ -1,0 +1,75 @@
+@startuml
+skinparam linetype ortho
+
+interface Entity {
+    - position_x: int
+    - position_y: int
+    - animation: string
+    + update(): void
+    + draw(): void
+}
+
+class Pet {
+    - Entity: entity
+    - name: string
+    - health: int
+    - level: int
+    - friendship: int
+    - hunger: int
+    - happiness: int
+    + pet(name: string)
+    + feed(): void
+    + play(): void
+    + level_up(): void
+    + move(move: string): void
+}
+
+class Object {
+    - Entity: entity
+    - input: string
+    + use(): void
+}
+
+class EmbeddedSystem {
+    + pet: Pet
+    + display: Display
+    + sensor: Sensor
+    + communication: CommunicationProtocol
+    + controller: Controller
+    + EmbeddedSystem()
+    + update_display(): void
+    + read_sensor_data(): void
+    + communicate(): void
+}
+class Game{
+
+}
+class Display {
+    + show_pet_status(pet: Pet): void
+}
+
+class Sensor {
+    + read(): SensorData
+}
+
+class SensorData {
+    - value: int
+}
+
+class CommunicationProtocol {
+    + send_data(data: string): void
+    + receive_data(): string
+}
+
+class Controller {
+    + process_input(input: string): void
+}
+
+Pet     -up-|> Entity
+Object  -up-|> Entity
+
+EmbeddedSystem "1" -- "*" Display : controls
+EmbeddedSystem "1" -- "1" Sensor : uses
+EmbeddedSystem "1" -- "1" CommunicationProtocol : uses
+EmbeddedSystem "1" -- "1" Controller : uses
+@enduml

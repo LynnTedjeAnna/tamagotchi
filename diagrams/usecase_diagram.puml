@@ -1,0 +1,20 @@
+@startuml
+
+left to right direction
+
+actor User as u
+
+rectangle "Pet" {
+    u --> (Feed)
+    u --> (Play)
+    u --> (Level Up)
+    u --> (Move)
+}
+
+rectangle "Embedded System" {
+    u --> (Update Display)
+    u --> (Read Sensor Data)
+    u --> (Communicate)
+}
+
+@enduml
