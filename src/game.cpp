@@ -1,26 +1,41 @@
 #include "game.hpp"
 
-Game::Game(Input* input) {
-    this->input = input;
-}
+
+Game::Game(Input* input) { this->input = input;}
 
 void Game::start() {
     // Initialize game resources and state
     // TODO: (example) load game state (after/if save game state is made)
 }
 
+// 1. make separate method in Game for user input that returns an enum type (NONE, SELECT, EXECUTE, CANCEL)
+//todo: same for pc and arduino?
+//only for select,execute and cancel input possible (menu choices)
+uint8_t Game::get_user_input() {
+    menu_input = 0;
+    do {scanf("%d", &menu_input);}
+    while (menu_input > CANCEL);
+    return menu_input;
+}
+// TODO: menu functionality (new method in Game)
+void Game::menu() {
+    //test print statement
+    printf("feed \n\r play \n\r train \n\r");
+    get_user_input();
+    if (menu_input == CANCEL){ return;}
+    if (menu_input == SELECT){
+
+    }
+    if (menu_input == EXECUTE){
+
+    }
+}
 void Game::update() {
     // todo: update pet's state, check level up, check evolution, manage time, etc.
     // TODO: edit these values based on user interaction
     pet_train_t train = TRAIN_NONE;
     pet_food_t food = FOOD_NONE;
     bool play = false;
-
-    /* TODO:
-     * 1. make separate method in Game for user input that returns an enum type (NONE, SELECT, EXECUTE, CANCEL)
-     * 2. menu functionality (new method in Game)
-     *
-     * */
 
     // 1. user interaction
     input->update();
@@ -55,7 +70,7 @@ void Game::update() {
         //todo: render screen with evolution animation
         printf("Your pet is evolving! \n\r");
     }
-    if (pet.friendship()) {
+    if (pet.friendship_level()) {
         //todo: render screen with friendship level up
         printf("Your pet grew a level in friendship! \n\r");
     }
