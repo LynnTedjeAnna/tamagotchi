@@ -1,5 +1,5 @@
 #include "pet.hpp"
-
+// TODO: CHECK SCALLING OF EVERY FUNCTION   (level(cap), hp, xp, friendship, hp decrease (health))
 // Draw method implementation
 void Pet::draw() {
     // Implement draw logic to draw pet on screen (terminal)
@@ -11,19 +11,20 @@ void Pet::update() {
 
 void Pet::feed(pet_food_t food) {
     // Decrease pet's hunger and increase happiness based on the type of food (represented by an integer)
-    // Determine the effects based on the type of food
     switch (food) {
         case BERRY: // Food type 1
-            hunger -= 10;
+            hunger -= (10 + hunger_bonus);
             happiness += 5;
             //todo: make functional
-            printf("You fed your pet with type 1! \n\r");
+            printf("You fed your pet with a berry! \n\r");
+            if (hunger < 0) { hunger = 0; }                     // Ensure that hunger and happiness values stay within valid range
             break;
         case APPLE: // Food type 2
-            hunger -= 20;
+            hunger -= (20 + hunger_bonus);
             happiness += 10;
             //todo: make functional
-            printf("You fed your pet with type 2! \n\r");
+            printf("You fed your pet with an apple! \n\r");
+            if (hunger < 0) { hunger = 0; }                     // Ensure that hunger and happiness values stay within valid range
             break;
         //todo: Add more cases for other food types
         default:
@@ -31,35 +32,34 @@ void Pet::feed(pet_food_t food) {
             printf("Error, invalid input \n\r");
             break;
     }
-    // Ensure that hunger values stay within valid range
-    if (hunger < 0) { hunger = 0; }
-    if (hunger > max_hunger){ hunger = max_hunger; }
 }
+
+//todo: after playing ... min increase happiness, increase hunger immediately
 void Pet::play() {
     // Increase pet's happiness and hunger (gain exp?)
     hunger += 0;
     happiness += 0;
-    //todo: after playing ... min increase happiness, increase hunger immediately
 
     // Ensure that hunger and happiness values stay within valid range
     if (hunger < 0) { hunger = 0; }
     if (hunger > max_hunger){ hunger = max_hunger; }
 }
+
 void Pet::train(pet_train_t train) {
-    // Gained exp to increase pet's level through training
-    //todo: enum trainings (names)
     switch (train) {
         case WALK: // training type 1
-            hunger += 10;
-            exp += 5;
+            hunger += (10 - hunger_bonus);
+            exp += (5 + exp_bonus);
             //todo: make functional
-            printf("You trained your pet with type 1! \n\r");
+            printf("You trained your pet with walking! \n\r");
+            if (hunger > max_hunger){ hunger = max_hunger; }        // Ensure that hunger and happiness values stay within valid range
             break;
         case RUN: // training type 2
-            hunger += 20;
-            exp += 10;
+            hunger += (20 - hunger_bonus);
+            exp += (10 + exp_bonus);
             //todo: make functional
-            printf("You trained your pet with type 2! \n\r");
+            printf("You trained your pet with running! \n\r");
+            if (hunger > max_hunger){ hunger = max_hunger; }        // Ensure that hunger and happiness values stay within valid range
             break;
         //todo: Add more cases for other food types
         default:
@@ -69,21 +69,18 @@ void Pet::train(pet_train_t train) {
     }
 }
 bool Pet::level_up() {
-    // Level up logic to increase the level of the pet
     level_cap = pow((level * xp_base), scale);
     if (exp >= level_cap){
         //level up when exp is high enough
         level++;
-        //todo: increase hp with level
         hp = pow(level, 1.2);
         return true;
     }
     return false;
 }
 bool Pet::evolution(){
-    // Implement evolution logic when increase the level of the pet
-    //todo: check logic, is there better way?
-    // TODO: current and next evolution and render evolution animation
+    // todo: check logic, is there better way?
+    // todo: current and next evolution and render evolution animation
     if (level == evolution_one){
         evolution_stage = 1;
         return true;
@@ -93,21 +90,24 @@ bool Pet::evolution(){
     }
     return false;
 }
-// todo: purpose for friendship level
-bool Pet::friendship() {
+bool Pet::friendship_level() {
     // Implement friendship logic to interact with the pet and increase friendship level
     happiness_cap = pow((level * xp_base), scale);
     if (happiness >= happiness_cap){
         //level up when exp is high enough
-        friendschip_level++;
+        friendship++;
+        friendship_perks();     //todo: friendship_perks location?
         return true;
     }
-    // 1. increase xp gain              (until lvl 20)
-    // 2. lower hunger decrease speed   (from lvl 20)
-    // 3. increase defence              (from lvl 40)
     return false;
 }
-// Health method implementation
+void Pet::friendship_perks() {
+    if (friendship <= 20){ exp_bonus = pow(friendship, 1.1);}               // Increase xp gain (until lvl 20)
+    else if (friendship <= 40 ){ hunger_bonus = pow(friendship, 0.9);}      // Lower hunger decrease speed (from lvl 20, until 40)
+    else if (friendship <= 60){}                                                     //todo: increase defence (from lvl 40, until 60?)
+}
+
+//todo: what other hp funcionalities, for example time passed alone -hp
 void Pet::health() {
     // Implement health logic to check and update the health status of the pet
     printf("%d Hunger before \n\r", hunger);
@@ -116,9 +116,8 @@ void Pet::health() {
     } else if (hunger > 60){ hp-= pow((level + 10), 1.2);}
     printf("Your pets health has decreased :( new hunger is: ");
     printf("%d\n\r", hunger);
-    //todo: what other hp funcionalities, for example time passed alone -hp
 }
-// Move method implementation
+
 void Pet::move() {
     // Implement move logic to move the pet
 }

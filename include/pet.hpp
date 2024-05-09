@@ -30,7 +30,8 @@ public:
     void train(pet_train_t train);
     bool level_up();
     bool evolution();
-    bool friendship();
+    bool friendship_level();
+    void friendship_perks();
     void health();
     void move();
 
@@ -44,11 +45,13 @@ private:
     const float scale = 1.1;
     const uint8_t evolution_one = 20;
     const uint8_t evolution_two = 45;
-    uint8_t evolution_stage;
+    uint8_t evolution_stage = 0;
     uint32_t happiness;                 //-> friendship
     uint32_t happiness_cap;
-    uint8_t friendschip_level = 0;
+    uint8_t friendship = 0;
     uint16_t hp = 15;             //-> health
+    uint16_t exp_bonus = 0;
+    uint16_t hunger_bonus = 0;
 };
 
 #endif //PET_CPP_PET_HPP
