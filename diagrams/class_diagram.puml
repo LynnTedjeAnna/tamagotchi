@@ -14,7 +14,7 @@ class Pet {
     - name: string
     - health: int
     - level: int
-    - friendship: int
+    - friendship_level: int
     - hunger: int
     - happiness: int
     + pet(name: string)

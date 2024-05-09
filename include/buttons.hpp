@@ -10,6 +10,7 @@ class Buttons : public Input {
 public:
     //button pins from controller rich shield arduino
     Buttons(uint8_t a, uint8_t b, uint8_t c);
+    void button_setup();
     // Override functions from the base class
     void update() override;
     bool get_select() override;
