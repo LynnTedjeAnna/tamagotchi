@@ -32,7 +32,7 @@ void Game::menu() {
 }
 void Game::update() {
     // todo: update pet's state, check level up, check evolution, manage time, etc.
-    // TODO: edit these values based on user interaction
+    // todo: edit these values based on user interaction
     pet_train_t train = TRAIN_NONE;
     pet_food_t food = FOOD_NONE;
     bool play = false;

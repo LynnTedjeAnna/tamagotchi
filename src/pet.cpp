@@ -63,6 +63,7 @@ void Pet::train(pet_train_t train) {
             break;
         //todo: Add more cases for other food types
         default:
+            //todo: exceptions
             // Handle invalid food types
             printf("Error, invalid input \n\r");
             break;
@@ -102,9 +103,15 @@ bool Pet::friendship_level() {
     return false;
 }
 void Pet::friendship_perks() {
-    if (friendship <= 20){ exp_bonus = pow(friendship, 1.1);}               // Increase xp gain (until lvl 20)
-    else if (friendship <= 40 ){ hunger_bonus = pow(friendship, 0.9);}      // Lower hunger decrease speed (from lvl 20, until 40)
-    else if (friendship <= 60){}                                                     //todo: increase defence (from lvl 40, until 60?)
+    if (friendship <= 20){
+        exp_bonus = pow(friendship, 1.1);           // Increase xp gain (until lvl 20)
+    }
+    else if (friendship <= 40 ){
+        hunger_bonus = pow(friendship, 0.9);        // Lower hunger decrease speed (from lvl 20, until 40)
+    }
+    else if (friendship <= 60){                             //todo: increase defence (from lvl 40, until 60?)
+
+    }
 }
 
 //todo: what other hp funcionalities, for example time passed alone -hp
