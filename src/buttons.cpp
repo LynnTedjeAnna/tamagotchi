@@ -22,11 +22,13 @@ bool Buttons::get_execute() { return digitalRead(execute) == HIGH;}
 bool Buttons::get_cancel() { return digitalRead(cancel) == HIGH;}
 
 #else
-Buttons::Buttons(uint8_t a, uint8_t b, uint8_t c) {
-    (void)a; (void)b; (void)c;
+Buttons::Buttons(uint8_t a, uint8_t b, uint8_t c, uint8_t d) {
+    (void)a; (void)b; (void)c; (void)d;
 }
-void Buttons::update()        {}
-bool Buttons::get_select()    { return 0; }
-bool Buttons::get_execute()   { return 0; }
-bool Buttons::get_cancel()    { return 0; }
+void Buttons::update() {}
+bool Buttons::get_select() { return 0; }
+bool Buttons::get_execute() { return 0; }
+bool Buttons::get_cancel() { return 0; }
+bool Buttons::get_save() { return 0;}
+
 #endif

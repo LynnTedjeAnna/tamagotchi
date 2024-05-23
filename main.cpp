@@ -3,18 +3,13 @@
 #include "keyboard.hpp"
 
 
-Keyboard keyboard('a', 'b', 'c');
+Keyboard keyboard('a', 'b', 'c', 'd');
 Game game(&keyboard);
 
 int main() {
     game.start();
-
-    // A Game CANNOT be made WITHOUT an infinite loop!!!
-    while (true) {
-        game.update();
-    }
-
     // save game
-    // game run function that stops game after save with button fuctonality
+    // game run function that stops game after save with button functionality
     return 0;  // exit
 }
+

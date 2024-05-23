@@ -6,28 +6,37 @@ Game::Game(Input* input) { this->input = input;}
 void Game::start() {
     // Initialize game resources and state
     // TODO: (example) load game state (after/if save game state is made)
+    run = true;
+    while (run) {
+        update();
+    }
 }
 
 // 1. make separate method in Game for user input that returns an enum type (NONE, SELECT, EXECUTE, CANCEL)
 //todo: same for pc and arduino?
 //only for select,execute and cancel input possible (menu choices)
 uint8_t Game::get_user_input() {
-    menu_input = 0;
     do {scanf("%d", &menu_input);}
-    while (menu_input > CANCEL);
+    while (menu_input > SAVE);
     return menu_input;
 }
-// TODO: menu functionality (new method in Game)
 void Game::menu() {
     //test print statement
-    printf("feed \n\r play \n\r train \n\r");
+    printf("* feed \n\r"
+           "* play \n\r"
+           "* train \n\r"
+           "* save \n\r"); //save and exit game
     get_user_input();
     if (menu_input == CANCEL){ return;}
     if (menu_input == SELECT){
-
+        printf("selected\n\r");     //test
     }
     if (menu_input == EXECUTE){
-
+        printf("executed\n\r");     //test
+    }
+    if (menu_input == SAVE){
+        run = false;
+        printf("exit\n\r");     //test
     }
 }
 void Game::update() {
@@ -39,6 +48,10 @@ void Game::update() {
 
     // 1. user interaction
     input->update();
+    get_user_input();
+    if (menu_input == EXECUTE){
+        menu();
+    }
     if (input->get_select()) {
         // todo: functionality
         printf("select pressed\n\r");
@@ -53,6 +66,11 @@ void Game::update() {
         // todo: functionality
         printf("cancel pressed\n\r");
         train = WALK;  // TEST
+    }
+    if (input->get_save()){
+        // todo: functionality
+        printf("exit \n\r");
+        run = false;
     }
 
     // 2. act on user interaction

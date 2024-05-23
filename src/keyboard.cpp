@@ -1,11 +1,8 @@
-#include "keyboard.hpp"
 #include <ncurses.h>
-
 #include <unistd.h>
 #include <fcntl.h>
 #include <termios.h>
-
-
+#include "keyboard.hpp"
 
 static int kbhit() {
     struct termios oldt, newt;
@@ -26,12 +23,11 @@ static int kbhit() {
     return 0;
 }
 
-
-
-Keyboard::Keyboard(char s, char e, char c) {
+Keyboard::Keyboard(char s, char e, char c, char x) {
     select = s;
     execute = e;
     cancel = c;
+    save = x;
     initscr();
     noecho();
 }
@@ -50,5 +46,6 @@ bool Keyboard::get_execute() {
 bool Keyboard::get_cancel() {
     return ch == cancel;
 }
-
-
+bool Keyboard::get_save() {
+    return ch == save;
+}

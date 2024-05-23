@@ -2,26 +2,41 @@
 skinparam linetype ortho
 
 interface Entity {
-    - position_x: int
-    - position_y: int
-    - animation: string
+    # position_x: int
+    # position_y: int
     + update(): void
     + draw(): void
 }
 
 class Pet {
     - Entity: entity
-    - name: string
-    - health: int
-    - level: int
-    - friendship_level: int
-    - hunger: int
-    - happiness: int
-    + pet(name: string)
-    + feed(): void
+    # hunger: int
+    # max_hunger : int
+    # exp: int
+    # level: int
+    # level_cap: int
+    # xp_base: int
+    # scale: float
+    # evolution_one: int
+    # evolution_two: int
+    # evolution_stage: int
+    # happiness: int
+    # happiness_cap: int
+    # friendship: int
+    # hp: int
+    # exp_bonus: int
+    # hunger_bonus: int
+    + update(): void
+    + draw(): void
+    + feed(food: pet_food_t): void
     + play(): void
-    + level_up(): void
-    + move(move: string): void
+    + train(train: pet_train_t): void
+    + level_up(): bool
+    + evolution(): bool
+    + friendship_level(): bool
+    + friendship_perks(): void
+    + health(): void
+    + move(): void
 }
 
 class Object {
@@ -30,46 +45,59 @@ class Object {
     + use(): void
 }
 
-class EmbeddedSystem {
-    + pet: Pet
-    + display: Display
-    + sensor: Sensor
-    + communication: CommunicationProtocol
-    + controller: Controller
-    + EmbeddedSystem()
-    + update_display(): void
-    + read_sensor_data(): void
-    + communicate(): void
+class Game {
+    - pet: Pet
+    - input: Input
+    # menu_input: int
+    + Game(input: Input)
+    + start(): void
+    + get_user_input(): int
+    + menu(): void
+    + update(): void
+    + render(): void
+    + manage_time(): void
 }
-class Game{
 
-}
 class Display {
     + show_pet_status(pet: Pet): void
 }
-
-class Sensor {
-    + read(): SensorData
+class input{
+    + update() : void
+    + get_select() : bool
+    + get_execute() : bool
+    + get_cancel() : bool
 }
 
-class SensorData {
-    - value: int
+class keyboard {
+    - Input: input
+    # char select
+    # char execute
+    # char cancel
+    # char ch
+    + Keyboard(s: char, e: char, c: char)
+    + update(): void
+    + get_select(): bool
+    + get_execute(): bool
+    + get_cancel(): bool
+}
+class buttons {
+    - Input: input
+    # char select
+    # char execute
+    # char cancel
+    # char ch
+    + update(): void
+    + get_select(): bool
+    + get_execute(): bool
+    + get_cancel(): bool
+    button_setup() : void
 }
 
-class CommunicationProtocol {
-    + send_data(data: string): void
-    + receive_data(): string
-}
-
-class Controller {
-    + process_input(input: string): void
-}
-
-Pet     -up-|> Entity
-Object  -up-|> Entity
-
-EmbeddedSystem "1" -- "*" Display : controls
-EmbeddedSystem "1" -- "1" Sensor : uses
-EmbeddedSystem "1" -- "1" CommunicationProtocol : uses
-EmbeddedSystem "1" -- "1" Controller : uses
+Pet     -up[#DeepPink]-|> Entity
+Object  -up[#DeepPink]-|> Entity
+Game -[#MediumSlateBlue]-> Pet
+Game -[#MediumSlateBlue]-> Object
+Game -[#MediumSlateBlue]-> input : uses
+keyboard -up[#LimeGreen]-|> input
+buttons -up[#LimeGreen]-|> input
 @enduml

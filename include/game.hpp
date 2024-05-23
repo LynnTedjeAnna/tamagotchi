@@ -11,7 +11,8 @@ typedef enum {
     INPUT_NONE = 0,
     SELECT = 1,
     EXECUTE = 2,
-    CANCEL = 3
+    CANCEL = 3,
+    SAVE
 } menu_choice;
 
 typedef enum{
@@ -35,6 +36,7 @@ public:
     void manage_time();         // Manages time for the pet, simulating real-time passage
 
 private:
+    bool run;
     uint32_t menu_input;
 };
 #endif //PET_CPP_GAME_HPP

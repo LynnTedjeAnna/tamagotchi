@@ -14,6 +14,7 @@ public:
     virtual bool get_select() = 0;
     virtual bool get_execute() = 0;
     virtual bool get_cancel() = 0;
+    virtual bool get_save() = 0;
 };
 
 #endif // PET_CPP_INPUT_HPP
