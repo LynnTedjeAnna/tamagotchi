@@ -7,7 +7,7 @@ include_directories(src)
 include_directories(include)
 include_directories(diagrams)
 
-add_executable(pet_cpp main.cpp
+add_executable(tamagotchi main.cpp
         src/pet.cpp
         src/object.cpp
         src/display.cpp

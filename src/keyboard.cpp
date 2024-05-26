@@ -1,3 +1,6 @@
+#include "keyboard.hpp"
+
+#ifdef PC
 #include <ncurses.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -49,3 +52,12 @@ bool Keyboard::get_cancel() {
 bool Keyboard::get_save() {
     return ch == save;
 }
+#else
+Keyboard::Keyboard(char s, char e, char c, char x) {}
+void Keyboard::update() {};
+bool Keyboard::get_select() {};
+bool Keyboard::get_execute() { };
+bool Keyboard::get_cancel() { };
+bool Keyboard::get_save() { };
+
+#endif

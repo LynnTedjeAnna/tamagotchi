@@ -2,6 +2,7 @@
 #include "game.hpp"
 #include "keyboard.hpp"
 
+#ifdef PC
 
 Keyboard keyboard('a', 'b', 'c', 'd');
 Game game(&keyboard);
@@ -13,3 +14,14 @@ int main() {
     return 0;  // exit
 }
 
+#else
+
+#include <Arduino.h>
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+}
+
+#endif

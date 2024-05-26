@@ -3,7 +3,6 @@
 //
 #ifndef PET_CPP_KEYBOARD_HPP
 #define PET_CPP_KEYBOARD_HPP
-
 #include "input.hpp"
 
 class Keyboard : public Input {
@@ -22,5 +21,4 @@ private:
     char save;
     char ch;
 };
-
 #endif // PET_CPP_KEYBOARD_HPP

@@ -6,7 +6,7 @@
 #ifndef PC
 #include <Arduino.h>
 
-Buttons::Buttons(uint8_t a, uint8_t b, uint8_t c) {
+Buttons::Buttons(uint8_t a, uint8_t b, uint8_t c, uint8_t d) {
     select = a;
     execute = b;
     cancel = c;
